@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add knight</title>
+    <title>Add post</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
@@ -14,7 +14,9 @@
     Data dodania: <span th:text="${post.time}"/>
     <h1 th:text="${post.title}"/>
     <p th:text="${post.text}"/>
-    <br />
+    <img th:src="@{'/postImageJPG?id='+${id}}"/>
+
+
     <a href="/blog">Powrót</a>
 </div>
 </body>

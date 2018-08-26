@@ -12,5 +12,4 @@ public class MainConfig {
     PostRepository postRepo = new PostRepository();
     return postRepo;
   }
-
 }

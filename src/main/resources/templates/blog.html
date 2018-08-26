@@ -14,9 +14,8 @@
 
 
 <div th:each=" post : ${posts}">
-    <h2 th:text="${post.title}"></h2>
+    <a th:href="${'/post?id='+post.id}"><h2 th:text="${post.title}"></h2></a>
     <div th:text="${post.time}"></div>
-    <div><a th:href="${'/post?id='+post.id}">Podglad</a></div>
 
 
 </div>
@@ -24,5 +23,6 @@
 <div class="row">
     <a href="/dodajwpis">Dodaj nowy wpis</a>
 </div>
+<br />
 </body>
 </html>

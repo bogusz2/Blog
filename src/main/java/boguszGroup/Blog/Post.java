@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public @Data class Post {
@@ -18,7 +19,7 @@ public @Data class Post {
   @NotNull
   @Size(min=1)
   private String text;
-  private LocalDateTime time;
+  private String time;
   private int id;
   private MultipartFile img;
 
@@ -27,7 +28,7 @@ public @Data class Post {
   public Post(String title, String text) {
     this.title = title;
     this.text = text;
-    this.time = LocalDateTime.now();
+
 
   }
 

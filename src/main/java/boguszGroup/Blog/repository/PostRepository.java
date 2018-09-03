@@ -2,13 +2,17 @@ package boguszGroup.Blog.repository;
 
 import boguszGroup.Blog.Post;
 import boguszGroup.Blog.utils.Ids;
+import org.apache.commons.io.IOUtils;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +22,7 @@ public class PostRepository {
 
 
   Map<Integer, Post> posts = new HashMap<>();
+  private final String folderPath = "C:\\Users\\Gal Anonim\\BLOG";
 
   public PostRepository() {
   }
@@ -27,29 +32,76 @@ public class PostRepository {
   }
 
   @PostConstruct
-  public void addNewPost() throws IOException {
-    Post post1 = new Post("title1", "text1");
-    posts.put(Ids.generateNewId(posts.keySet()), post1);
-    posts.put(Ids.generateNewId(posts.keySet()), new Post("title2", "text2"));
+  private void addPostsFromLocalDisc() throws IOException {
 
-    System.out.println("Dodałem testowy post");
+    File folder = new File(folderPath);
+    File[] fileList = folder.listFiles(file -> {
+      if (file.getName().contains(".html")) {
+        return true;
+      }
+      return false;
+    });
+
+    for (File src : fileList) {
+
+      Post post = new Post();
+      post.setId(Integer.parseInt(src.getName().substring(0,src.getName().lastIndexOf("."))));
+      String textOfPost = new String(Files.readAllBytes(Paths.get(src.getAbsolutePath())));
+      post.setText(textOfPost);
+
+
+      String pathTXT = src.getAbsolutePath().replace(".html", ".txt");
+      String txt = new String(Files.readAllBytes(Paths.get(pathTXT)));
+      String dateOfPost = txt.substring(0, txt.indexOf("\n"));
+      post.setTime(dateOfPost);
+
+      String titleOfPost = txt.substring(txt.indexOf("\n")).trim();
+      if(titleOfPost.equals("Fotoblog mrrrasniasta w Photoblog.pl")){
+        titleOfPost = "Wpis "+src.getName().replace(".html","");
+      }
+      post.setTitle(titleOfPost);
+
+      File img = new File(src.getAbsolutePath().replace(".html", ".jpg"));
+      FileInputStream input = new FileInputStream(img);
+      MultipartFile imgMPF = new MockMultipartFile("img",img.getName(), "image/jpg", IOUtils.toByteArray(input));
+      post.setImg(imgMPF);
+
+      post.setPathPostImage(src.getAbsolutePath().replace(".html", ".jpg"));
+
+
+      posts.put(post.getId(),post);
+    }
+    System.out.println("Dodałem posty z dysku");
+
   }
+
 
   public void addNewPost(Post post) {
     post.setId(Ids.generateNewId(posts.keySet()));
-
+    post.setTime(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
     try {
-      File tempFile = File.createTempFile("Image"+((Integer)post.getId()),".png");
-      Path path = Paths.get(tempFile.getAbsolutePath());
+      File img = new File(folderPath, post.getId()+".jpg");
+      Path path = Paths.get(img.getAbsolutePath());
       Files.write(path, post.getImg().getBytes());
       post.setPathPostImage(path.toString());
-      System.out.println(path);
-      System.out.println(post.getId());
+
+      File dateTitlePost = new File(folderPath,post.getId() + ".txt");
+      BufferedWriter bw = new BufferedWriter(new FileWriter(dateTitlePost));
+      bw.write(post.getTime());
+      bw.newLine();
+      bw.write(post.getTitle());
+      bw.close();
+
+      File html = new File(folderPath, post.getId() + ".html");
+      BufferedWriter bwHtml = new BufferedWriter(new FileWriter(html));
+      bwHtml.write(post.getText());
+      bwHtml.close();
+
+
     } catch (IOException e) {
       e.printStackTrace();
     }
 
-    post.setTime(LocalDateTime.now());
     posts.put(post.getId(), post);
   }
 

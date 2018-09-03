@@ -11,9 +11,12 @@
 </head>
 <body>
 <h1>Jesteś na stronie bloga</h1>
+<div class="row">
+    <a href="/dodajwpis">Dodaj nowy wpis</a>
+</div>
 
-
-<div th:each=" post : ${posts}">
+<div th:each=" i : ${#numbers.sequence(posts.size()-1,0,-1)}"
+     th:with="post = ${posts[i]}">
     <a th:href="${'/post?id='+post.id}"><h2 th:text="${post.title}"></h2></a>
     <div th:text="${post.time}"></div>
 

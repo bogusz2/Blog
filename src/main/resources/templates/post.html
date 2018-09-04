@@ -13,8 +13,10 @@
 <div class="container">
     Data dodania: <span th:text="${post.time}"/>
     <h1 th:text="${post.title}"/>
-    <p th:text="${post.text}"/>
+    <p th:utext="${post.text}"/>
+    <!--<p th:="${post.text}"/>-->
     <img th:src="@{'/postImageJPG?id='+${id}}"/>
+</div>
 
 
     <a href="/blog">Powrót</a>

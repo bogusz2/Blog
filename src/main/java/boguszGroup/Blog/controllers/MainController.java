@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Controller
@@ -47,7 +49,7 @@ public class MainController {
     Post post = postService.getPost(id);
     model.addAttribute("post", post);
     model.addAttribute("id", post.getId());
-    //model.addAttribute("image",post.getBase64Image());
+
 
     return "post";
   }
@@ -56,9 +58,10 @@ public class MainController {
   public @ResponseBody
   byte[] getPostImage(@RequestParam("id") Integer id, HttpServletResponse response, Model model) throws IOException {
     model.addAttribute("id", id);
-    FileInputStream file = new FileInputStream(postService.getPost(id).getPathPostImage());
-    System.out.println(postService.getPost(id).getPathPostImage());
-    // InputStream in = getClass().getResourceAsStream(pathOfImage);
+    //FileInputStream file = new FileInputStream(postService.getPost(id).getPathPostImage());
+    //InputStream file = new ByteArrayInputStream(postService.getPost(id).getByteArrayImg());
+    //System.out.println(postService.getPost(id).getPathPostImage());
+    InputStream file = postService.getInputStreamImgFromRepo(id);
     return IOUtils.toByteArray(file);
   }
 
@@ -76,6 +79,4 @@ public class MainController {
     }
 
   }
-
-
 }

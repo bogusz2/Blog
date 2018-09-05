@@ -5,6 +5,8 @@ import boguszGroup.Blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +22,16 @@ public class PostService {
     return posts;
   }
 
-  public Post getPost(Integer id){
+  public Post getPost(Integer id) {
     return postRepository.getPostById(id);
   }
 
+  public InputStream getInputStreamImgFromRepo(int id) throws IOException {
+    return postRepository.getInputStreamImg(id);
+  }
 
 
-  public void addPost(Post post){
+  public void addPost(Post post) {
     postRepository.addNewPost(post);
 
   }

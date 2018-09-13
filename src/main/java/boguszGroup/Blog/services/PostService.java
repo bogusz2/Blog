@@ -22,11 +22,11 @@ public class PostService {
     return posts;
   }
 
-  public Post getPost(Integer id) {
+  public Post getPost(Long id) {
     return postRepository.getPostById(id);
   }
 
-  public InputStream getInputStreamImgFromRepo(int id) throws IOException {
+  public InputStream getInputStreamImgFromRepo(Long id) throws IOException {
     return postRepository.getInputStreamImg(id);
   }
 

@@ -2,10 +2,7 @@ package boguszGroup.Blog;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -24,7 +21,7 @@ class Post {
   private String time;
 
   @Id
-  private int id;
+  private long id;
 
   @Transient
   private MultipartFile img;

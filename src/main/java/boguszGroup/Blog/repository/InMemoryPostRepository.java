@@ -23,7 +23,7 @@ public class InMemoryPostRepository implements PostRepository {
 
   private final String folderPath = "C:\\Users\\Gal Anonim\\BLOG";
 
-  Map<Integer, Post> posts = new HashMap<>();
+  Map<Long, Post> posts = new HashMap<>();
 
   public InMemoryPostRepository() {
   }
@@ -34,12 +34,12 @@ public class InMemoryPostRepository implements PostRepository {
   }
 
   @Override
-  public Post getPostById(Integer id) {
+  public Post getPostById(Long id) {
     return posts.get(id);
   }
 
   @Override
-  public InputStream getInputStreamImg(int id) throws IOException {
+  public InputStream getInputStreamImg(Long id) throws IOException {
     InputStream file = new FileInputStream(getPostById(id).getPathPostImage());
     return file;
   }

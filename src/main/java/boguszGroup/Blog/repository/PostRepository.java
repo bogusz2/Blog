@@ -10,11 +10,11 @@ public interface PostRepository {
 
   Collection<Post> getPosts();
 
-  Post getPostById(Integer id);
+  Post getPostById(Long id);
 
   void addNewPost(Post post);
 
-  InputStream getInputStreamImg(int id) throws IOException;
+  InputStream getInputStreamImg(Long id) throws IOException;
 
   void addPostsFromLocalDisc() throws IOException;
 

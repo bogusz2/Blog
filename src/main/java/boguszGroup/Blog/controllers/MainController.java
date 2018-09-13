@@ -45,7 +45,7 @@ public class MainController {
   }
 
   @RequestMapping("/post")
-  public String getPost(@RequestParam("id") Integer id, Model model, HttpServletResponse response) throws IOException {
+  public String getPost(@RequestParam("id") Long id, Model model, HttpServletResponse response) throws IOException {
     Post post = postService.getPost(id);
     model.addAttribute("post", post);
     model.addAttribute("id", post.getId());
@@ -56,7 +56,7 @@ public class MainController {
 
   @RequestMapping(value = "/postImageJPG")
   public @ResponseBody
-  byte[] getPostImage(@RequestParam("id") Integer id, HttpServletResponse response, Model model) throws IOException {
+  byte[] getPostImage(@RequestParam("id") Long id, HttpServletResponse response, Model model) throws IOException {
     model.addAttribute("id", id);
     //FileInputStream file = new FileInputStream(postService.getPost(id).getPathPostImage());
     //InputStream file = new ByteArrayInputStream(postService.getPost(id).getByteArrayImg());

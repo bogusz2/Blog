@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.*;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -23,16 +24,16 @@ public class DBPostRepository implements PostRepository {
 
   @Override
   public Collection<Post> getPosts() {
-    return em.createQuery("from Post", Post.class).getResultList();
+    return em.createQuery("from Post  order by id desc", Post.class).getResultList();
   }
 
   @Override
-  public Post getPostById(Integer id) {
+  public Post getPostById(Long id) {
     return em.find(Post.class, id);
   }
 
   @Override
-  public InputStream getInputStreamImg(int id) {
+  public InputStream getInputStreamImg(Long id) {
     InputStream file = new ByteArrayInputStream(getPostById(id).getByteArrayImg());
     return file;
   }
@@ -40,7 +41,7 @@ public class DBPostRepository implements PostRepository {
   @Override
   @Transactional
   public void addNewPost(Post post) {
-    int maxId = em.createQuery("select max(id) from Post", Integer.class).getSingleResult();
+    long maxId = em.createQuery("select max(id) from Post", Long.class).getSingleResult();
     post.setId(maxId + 1);
     post.setTime(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
     try {

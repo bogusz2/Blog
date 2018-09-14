@@ -24,18 +24,13 @@ class Post {
   private long id;
 
   @Transient
-  private MultipartFile img;
+  private MultipartFile imgFile;
 
   @Lob
-  private byte[] byteArrayImg;
+  private byte[] img;
 
   @Transient
   private String pathPostImage;
-
-  public Post(String title, String text) {
-    this.title = title;
-    this.text = text;
-  }
 
   public Post() {
   }

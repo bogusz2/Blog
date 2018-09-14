@@ -5,11 +5,9 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.*;
-import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -32,11 +30,11 @@ public class DBPostRepository implements PostRepository {
     return em.find(Post.class, id);
   }
 
-  @Override
-  public InputStream getInputStreamImg(Long id) {
-    InputStream file = new ByteArrayInputStream(getPostById(id).getByteArrayImg());
-    return file;
-  }
+//  @Override
+//  public InputStream getInputStreamImg(Long id) {
+//    InputStream file = new ByteArrayInputStream(getPostById(id).getImg());
+//    return file;
+//  }
 
   @Override
   @Transactional
@@ -45,8 +43,8 @@ public class DBPostRepository implements PostRepository {
     post.setId(maxId + 1);
     post.setTime(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
     try {
-      byte[] dataImg = post.getImg().getBytes();
-      post.setByteArrayImg(dataImg);
+      byte[] dataImg = post.getImgFile().getBytes();
+      post.setImg(dataImg);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -88,13 +86,13 @@ public class DBPostRepository implements PostRepository {
 
       File img = new File(src.getAbsolutePath().replace(".html", ".jpg"));
       FileInputStream input = new FileInputStream(img);
-      MultipartFile imgMPF = new MockMultipartFile("img", img.getName(), "image/jpg", IOUtils.toByteArray(input));
-      post.setImg(imgMPF);
+      MultipartFile imgMPF = new MockMultipartFile("imgFile", img.getName(), "image/jpg", IOUtils.toByteArray(input));
+      post.setImgFile(imgMPF);
 
       post.setPathPostImage(src.getAbsolutePath().replace(".html", ".jpg"));
 
-      byte[] data = post.getImg().getBytes();
-      post.setByteArrayImg(data);
+      byte[] data = post.getImgFile().getBytes();
+      post.setImg(data);
       em.persist(post);
     }
     System.out.println("Dodałem posty z dysku do bazy danych");

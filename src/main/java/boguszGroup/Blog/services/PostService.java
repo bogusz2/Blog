@@ -26,9 +26,9 @@ public class PostService {
     return postRepository.getPostById(id);
   }
 
-  public InputStream getInputStreamImgFromRepo(Long id) throws IOException {
-    return postRepository.getInputStreamImg(id);
-  }
+//  public InputStream getInputStreamImgFromRepo(Long id) throws IOException {
+//    return postRepository.getInputStreamImg(id);
+//  }
 
 
   public void addPost(Post post) {

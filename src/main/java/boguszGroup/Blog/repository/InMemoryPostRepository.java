@@ -38,11 +38,11 @@ public class InMemoryPostRepository implements PostRepository {
     return posts.get(id);
   }
 
-  @Override
-  public InputStream getInputStreamImg(Long id) throws IOException {
-    InputStream file = new FileInputStream(getPostById(id).getPathPostImage());
-    return file;
-  }
+//  @Override
+//  public InputStream getInputStreamImg(Long id) throws IOException {
+//    InputStream file = new FileInputStream(getPostById(id).getPathPostImage());
+//    return file;
+//  }
 
   @Override
   public void addNewPost(Post post) {
@@ -51,7 +51,7 @@ public class InMemoryPostRepository implements PostRepository {
     try {
       File img = new File(folderPath, post.getId() + ".jpg");
       Path path = Paths.get(img.getAbsolutePath());
-      Files.write(path, post.getImg().getBytes());
+      Files.write(path, post.getImgFile().getBytes());
       post.setPathPostImage(path.toString());
 
       File dateTitlePost = new File(folderPath, post.getId() + ".txt");
@@ -66,7 +66,7 @@ public class InMemoryPostRepository implements PostRepository {
       bwHtml.write(post.getText());
       bwHtml.close();
 
-      post.setByteArrayImg(post.getImg().getBytes());
+      post.setImg(post.getImgFile().getBytes());
 
 
     } catch (IOException e) {
@@ -109,8 +109,8 @@ public class InMemoryPostRepository implements PostRepository {
 
       File img = new File(src.getAbsolutePath().replace(".html", ".jpg"));
       FileInputStream input = new FileInputStream(img);
-      MultipartFile imgMPF = new MockMultipartFile("img", img.getName(), "image/jpg", IOUtils.toByteArray(input));
-      post.setImg(imgMPF);
+      MultipartFile imgMPF = new MockMultipartFile("imgFile", img.getName(), "image/jpg", IOUtils.toByteArray(input));
+      post.setImgFile(imgMPF);
 
       post.setPathPostImage(src.getAbsolutePath().replace(".html", ".jpg"));
 

@@ -14,7 +14,7 @@ public interface PostRepository {
 
   void addNewPost(Post post);
 
-  InputStream getInputStreamImg(Long id) throws IOException;
+//  InputStream getInputStreamImg(Long id) throws IOException;
 
   void addPostsFromLocalDisc() throws IOException;
 

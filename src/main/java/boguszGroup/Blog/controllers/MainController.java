@@ -2,7 +2,6 @@ package boguszGroup.Blog.controllers;
 
 import boguszGroup.Blog.Post;
 import boguszGroup.Blog.services.PostService;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 @Controller
@@ -58,11 +53,7 @@ public class MainController {
   public @ResponseBody
   byte[] getPostImage(@RequestParam("id") Long id, HttpServletResponse response, Model model) throws IOException {
     model.addAttribute("id", id);
-    //FileInputStream file = new FileInputStream(postService.getPost(id).getPathPostImage());
-    //InputStream file = new ByteArrayInputStream(postService.getPost(id).getByteArrayImg());
-    //System.out.println(postService.getPost(id).getPathPostImage());
-    InputStream file = postService.getInputStreamImgFromRepo(id);
-    return IOUtils.toByteArray(file);
+    return postService.getPost(id).getImg();
   }
 
 

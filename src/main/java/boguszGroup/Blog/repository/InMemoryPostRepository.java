@@ -38,12 +38,6 @@ public class InMemoryPostRepository implements PostRepository {
     return posts.get(id);
   }
 
-//  @Override
-//  public InputStream getInputStreamImg(Long id) throws IOException {
-//    InputStream file = new FileInputStream(getPostById(id).getPathPostImage());
-//    return file;
-//  }
-
   @Override
   public void addNewPost(Post post) {
     post.setId(Ids.generateNewId(posts.keySet()));
@@ -76,47 +70,53 @@ public class InMemoryPostRepository implements PostRepository {
     posts.put(post.getId(), post);
   }
 
-  @PostConstruct
   @Override
-  public void addPostsFromLocalDisc() throws IOException {
+  public void addPostsFromLocalDisc(String folderPath) throws IOException {
 
     File folder = new File(folderPath);
     File[] fileList = folder.listFiles(file -> {
-      if (file.getName().contains(".html")) {
-        return true;
-      }
-      return false;
+      return file.getName().contains(".html");
     });
-
-    for (File src : fileList) {
-
-      Post post = new Post();
-      post.setId(Integer.parseInt(src.getName().substring(0, src.getName().lastIndexOf("."))));
-      String textOfPost = new String(Files.readAllBytes(Paths.get(src.getAbsolutePath())));
-      post.setText(textOfPost);
-
-
-      String pathTXT = src.getAbsolutePath().replace(".html", ".txt");
-      String txt = new String(Files.readAllBytes(Paths.get(pathTXT)));
-      String dateOfPost = txt.substring(0, txt.indexOf("\n"));
-      post.setTime(dateOfPost);
-
-      String titleOfPost = txt.substring(txt.indexOf("\n")).trim();
-      if (titleOfPost.equals("Fotoblog mrrrasniasta w Photoblog.pl")) {
-        titleOfPost = "Wpis " + src.getName().replace(".html", "");
+    if(fileList!=null) {
+      for (File src : fileList) {
+        Post post = createPostFromLocalDir(src);
+        posts.put(post.getId(), post);
       }
-      post.setTitle(titleOfPost);
-
-      File img = new File(src.getAbsolutePath().replace(".html", ".jpg"));
-      FileInputStream input = new FileInputStream(img);
-      MultipartFile imgMPF = new MockMultipartFile("imgFile", img.getName(), "image/jpg", IOUtils.toByteArray(input));
-      post.setImgFile(imgMPF);
-
-      post.setPathPostImage(src.getAbsolutePath().replace(".html", ".jpg"));
-
-      posts.put(post.getId(), post);
+      System.out.println("Dodałem posty z dysku");
     }
-    System.out.println("Dodałem posty z dysku");
+    else{
+      System.out.println("Nie ma postów na dysku");
+    }
   }
+
+
+  public Post createPostFromLocalDir(File src) throws IOException{
+    Post post = new Post();
+    post.setId(Integer.parseInt(src.getName().substring(0, src.getName().lastIndexOf("."))));
+    String textOfPost = new String(Files.readAllBytes(Paths.get(src.getAbsolutePath())));
+    post.setText(textOfPost);
+
+
+    String pathTXT = src.getAbsolutePath().replace(".html", ".txt");
+    String txt = new String(Files.readAllBytes(Paths.get(pathTXT)));
+    String dateOfPost = txt.substring(0, txt.indexOf("\n"));
+    post.setTime(dateOfPost);
+
+    String titleOfPost = txt.substring(txt.indexOf("\n")).trim();
+    if (titleOfPost.equals("Fotoblog mrrrasniasta w Photoblog.pl")) {
+      titleOfPost = "Wpis " + src.getName().replace(".html", "");
+    }
+    post.setTitle(titleOfPost);
+
+    File img = new File(src.getAbsolutePath().replace(".html", ".jpg"));
+    FileInputStream input = new FileInputStream(img);
+    MultipartFile imgMPF = new MockMultipartFile("imgFile", img.getName(), "image/jpg", IOUtils.toByteArray(input));
+    post.setImgFile(imgMPF);
+    post.setImg(imgMPF.getBytes());
+    post.setPathPostImage(img.getAbsolutePath());
+
+    return post;
+  }
+
 
 }

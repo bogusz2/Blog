@@ -7,7 +7,7 @@ public interface PostRepository {
 
   Collection<Post> getPosts();
 
-  Post getPostById(Long id);
+  Post getPostById(long id);
 
   void addNewPost(Post post);
 

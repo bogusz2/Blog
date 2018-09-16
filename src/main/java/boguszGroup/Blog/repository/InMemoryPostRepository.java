@@ -34,7 +34,7 @@ public class InMemoryPostRepository implements PostRepository {
   }
 
   @Override
-  public Post getPostById(Long id) {
+  public Post getPostById(long id) {
     return posts.get(id);
   }
 

@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 public @Data
+@Table(name="post_table")
 class Post {
 
   @NotNull
@@ -18,6 +19,7 @@ class Post {
   @Size(min = 1)
   private String text;
 
+  @Column(name="date")
   private String time;
 
   @Id

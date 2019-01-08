@@ -28,7 +28,7 @@
 
 
         <input type="file" name="img" accept="image/jpeg,image/jpg, image/png" th:field="*{imgFile}"/>
-        <p th:if="${#fields.hasErrors('pathPostImage')}" th:errors="*{pathPostImage}"/>
+        <p th:if="${#fields.hasErrors('imgFile')}" th:errors="*{imgFile}"/>
         <div class="row">
             <button type="submit" class="btn btn-default" >wyślij wpis</button>
         </div>

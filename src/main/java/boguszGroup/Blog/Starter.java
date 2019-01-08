@@ -19,6 +19,7 @@ public class Starter implements CommandLineRunner {
   @Override
   @Transactional
   public void run(String... args) throws Exception {
-//    postRepository.addPostsFromLocalDisc();
+//    final String folderPath = "C:\\Users\\Gal Anonim\\BLOG";
+//    postRepository.addPostsFromLocalDisc(folderPath);
   }
 }

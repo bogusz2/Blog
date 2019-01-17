@@ -70,6 +70,7 @@ public class InMemoryPostRepository implements PostRepository {
     posts.put(post.getId(), post);
   }
 
+
   @Override
   public void addPostsFromLocalDisc(String folderPath) throws IOException {
 

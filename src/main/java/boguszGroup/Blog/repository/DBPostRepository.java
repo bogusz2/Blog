@@ -22,7 +22,7 @@ public class DBPostRepository implements PostRepository {
 
   @Override
   public Collection<Post> getPosts() {
-    return em.createQuery("from Post  order by id desc", Post.class).getResultList();
+    return em.createQuery("from Post  order by id asc", Post.class).getResultList();
   }
 
   @Override
@@ -63,33 +63,4 @@ public class DBPostRepository implements PostRepository {
     }
   }
 
-
-  public Post createPostFromLocalDir(File src) throws IOException{
-    Post post = new Post();
-    post.setId(Integer.parseInt(src.getName().substring(0, src.getName().lastIndexOf("."))));
-    String textOfPost = new String(Files.readAllBytes(Paths.get(src.getAbsolutePath())));
-    post.setText(textOfPost);
-
-    String pathTXT = src.getAbsolutePath().replace(".html", ".txt");
-    String txt = new String(Files.readAllBytes(Paths.get(pathTXT)));
-    String dateOfPost = txt.substring(0, txt.indexOf("\n"));
-    post.setTime(dateOfPost);
-
-    String titleOfPost = txt.substring(txt.indexOf("\n")).trim();
-    if (titleOfPost.equals("Fotoblog mrrrasniasta w Photoblog.pl")) {
-      titleOfPost = "Wpis " + src.getName().replace(".html", "");
-    }
-    post.setTitle(titleOfPost);
-
-    File img = new File(src.getAbsolutePath().replace(".html", ".jpg"));
-    FileInputStream input = new FileInputStream(img);
-    MultipartFile imgMPF = new MockMultipartFile("imgFile", img.getName(), "image/jpg", IOUtils.toByteArray(input));
-    post.setImgFile(imgMPF);
-
-    post.setPathPostImage(src.getAbsolutePath().replace(".html", ".jpg"));
-
-    byte[] data = post.getImgFile().getBytes();
-    post.setImg(data);
-    return post;
-  }
 }

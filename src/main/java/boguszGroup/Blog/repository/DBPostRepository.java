@@ -1,6 +1,7 @@
 package boguszGroup.Blog.repository;
 
 import boguszGroup.Blog.Post;
+import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +21,21 @@ public class DBPostRepository implements PostRepository {
   @PersistenceContext
   private EntityManager em;
 
-  @Override
+  @Override//TODO zmienić getPosts na metode która zwróci title i czas w json - czyli to co jest pod /blog
+  // TODO to  z json można dać do services
   public Collection<Post> getPosts() {
-    return em.createQuery("from Post  order by id asc", Post.class).getResultList();
+    Collection<Post> a = em.createQuery("select title from Post  order by id asc", Post.class).getResultList();
+    Gson gson = new Gson();
+    String json = gson.toJson(a);
+
+    File file = new File("/home/user/Projects/priv", "temp.txt");
+    try {
+      BufferedWriter bwHtml = new BufferedWriter(new FileWriter(file));
+      bwHtml.write(json);
+      bwHtml.close();
+    }catch (IOException e){}
+
+    return a;
   }
 
   @Override

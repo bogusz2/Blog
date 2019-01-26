@@ -2,6 +2,7 @@ package boguszGroup.Blog.services;
 
 import boguszGroup.Blog.Post;
 import boguszGroup.Blog.repository.PostRepository;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,14 +23,21 @@ public class PostService {
     return posts;
   }
 
-  public Post getPost(Long id) {
-    return postRepository.getPostById(id);
+  public String getBlogJSON() {
+    String query = "select id, title, time from Post order by id asc";
+    Gson gson = new Gson();
+    List<Object[]> lista = postRepository.getColumn(query);
+    String json = gson.toJson(lista);
+    return json;
   }
 
-//  public InputStream getInputStreamImgFromRepo(Long id) throws IOException {
-//    return postRepository.getInputStreamImg(id);
-//  }
-
+  public String getPost(Long id) {
+    String query = "from Post where "+id+" order by id asc";
+    Post result = postRepository.getPostById(id);
+    Gson gson = new Gson();
+    String postJson = gson.toJson(result);
+    return postJson;
+  }
 
   public void addPost(Post post) {
     postRepository.addNewPost(post);

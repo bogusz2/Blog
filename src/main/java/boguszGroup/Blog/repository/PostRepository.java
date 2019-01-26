@@ -11,42 +11,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.List;
+
 public interface PostRepository {
 
   Collection<Post> getPosts();
 
+  List<Object[]> getColumn(String query);
+
   Post getPostById(long id);
 
   void addNewPost(Post post);
-
-  void addPostsFromLocalDisc(String folderPath) throws IOException;
-
-  default Post createPostFromLocalDir(File src) throws IOException{
-    Post post = new Post();
-    post.setId(Integer.parseInt(src.getName().substring(0, src.getName().lastIndexOf("."))));
-    String textOfPost = new String(Files.readAllBytes(Paths.get(src.getAbsolutePath())));
-    post.setText(textOfPost);
-
-
-    String pathTXT = src.getAbsolutePath().replace(".html", ".txt");
-    String txt = new String(Files.readAllBytes(Paths.get(pathTXT)));
-    String dateOfPost = txt.substring(0, txt.indexOf("\n"));
-    post.setTime(dateOfPost);
-
-    String titleOfPost = txt.substring(txt.indexOf("\n")).trim();
-    if (titleOfPost.equals("Fotoblog mrrrasniasta w Photoblog.pl")) {
-      titleOfPost = "Wpis " + src.getName().replace(".html", "");
-    }
-    post.setTitle(titleOfPost);
-
-    File img = new File(src.getAbsolutePath().replace(".html", ".jpg"));
-    FileInputStream input = new FileInputStream(img);
-    MultipartFile imgMPF = new MockMultipartFile("imgFile", img.getName(), "image/jpg", IOUtils.toByteArray(input));
-    post.setImgFile(imgMPF);
-    post.setImg(imgMPF.getBytes());
-    post.setPathPostImage(img.getAbsolutePath());
-
-    return post;
-  }
 
 }

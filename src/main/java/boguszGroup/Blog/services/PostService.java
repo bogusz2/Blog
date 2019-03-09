@@ -17,12 +17,6 @@ public class PostService {
   @Autowired
   PostRepository postRepository;
 
-  public List<Post> getAllPosts() {
-    List<Post> posts = new ArrayList<>(postRepository.getPosts());
-
-    return posts;
-  }
-
   public String getShortPostsJSON() {
     String query = "select id, title, time from Post order by id asc";
     Gson gson = new Gson();

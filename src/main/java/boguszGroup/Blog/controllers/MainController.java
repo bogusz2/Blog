@@ -23,7 +23,7 @@ public class MainController {
 
     @RequestMapping("/blog")
     @ResponseBody
-    public String blog(Model model) {
+    public String blog() {
         return postService.getShortPostsJSON();
     }
 

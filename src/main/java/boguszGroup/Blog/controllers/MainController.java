@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 public class MainController {
@@ -25,7 +24,7 @@ public class MainController {
     @RequestMapping("/blog")
     @ResponseBody
     public String blog(Model model) {
-        return postService.getBlogJSON();
+        return postService.getShortPostsJSON();
     }
 
     @RequestMapping("/dodajwpis")

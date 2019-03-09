@@ -23,7 +23,7 @@ public class PostService {
     return posts;
   }
 
-  public String getBlogJSON() {
+  public String getShortPostsJSON() {
     String query = "select id, title, time from Post order by id asc";
     Gson gson = new Gson();
     List<Object[]> lista = postRepository.getColumn(query);

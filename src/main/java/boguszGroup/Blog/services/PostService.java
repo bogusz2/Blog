@@ -6,35 +6,35 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class PostService {
 
-  @Autowired
-  PostRepository postRepository;
+    @Autowired
+    PostRepository postRepository;
 
-  public String getShortPostsJSON() {
-    String query = "select id, title, time from Post order by id asc";
-    Gson gson = new Gson();
-    List<Object[]> lista = postRepository.getColumn(query);
-    String json = gson.toJson(lista);
-    return json;
-  }
+    final private int POSTS_ON_PAGE = 10;
 
-  public String getPost(Long id) {
-    String query = "from Post where "+id+" order by id asc";
-    Post result = postRepository.getPostById(id);
-    Gson gson = new Gson();
-    String postJson = gson.toJson(result);
-    return postJson;
-  }
+    public String getShortPostsJSON(long page) {
+        long id_first = 1 + (POSTS_ON_PAGE * page);
+        long id_last = id_first + POSTS_ON_PAGE;
+        String query = "select id, title, date from Post where id>" + id_first + "and id<" + id_last + " order by id asc";
+        Gson gson = new Gson();
+        List<Object[]> lista = postRepository.getPosts(query);
+        return gson.toJson(lista);
+    }
 
-  public void addPost(Post post) {
-    postRepository.addNewPost(post);
 
-  }
+    public String getPost(Long id) {
+        String query = "from Post where " + id + " order by id asc";
+        Post result = postRepository.getPostById(id);
+        Gson gson = new Gson();
+        return gson.toJson(result);
+    }
+
+    public void addPost(Post post) {
+        postRepository.addNewPost(post);
+
+    }
 }

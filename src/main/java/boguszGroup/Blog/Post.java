@@ -20,7 +20,7 @@ class Post {
   private String text;
 
   @Column(name="date")
-  private String time;
+  private String date;
 
   @Id
   private long id;
@@ -30,9 +30,6 @@ class Post {
 
   @Lob
   private byte[] img;
-
-  @Transient
-  private String pathPostImage;
 
   public Post() {
   }

@@ -6,47 +6,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MainController {
 
     @Autowired
     PostService postService;
 
-    @RequestMapping("/blog")
+    @GetMapping("/blog")
     @ResponseBody
-    public String blog() {
-        return postService.getShortPostsJSON();
+    public String blog(@RequestParam(value = "page", required = false, defaultValue = "0") Long page) {
+        return postService.getShortPostsJSON(page);
     }
 
-    @RequestMapping("/dodajwpis")
-    public String nowywpis(Model model) {
+
+    @RequestMapping("/addPost")
+    public String newPost(Model model) {
         model.addAttribute("post", new Post());
-        return "nowywpis";
+        return "newpost";
     }
 
     @RequestMapping("/post")
     @ResponseBody
-    public String getPost(@RequestParam("id") Long id, Model model, HttpServletResponse response) throws IOException {
+    public String getPost(@RequestParam("id") long id, Model model, HttpServletResponse response) throws IOException {
         String json = postService.getPost(id);
         model.addAttribute("post", json);
         return json;
     }
-
-//    @RequestMapping(value = "/postImageJPG")
-//    public @ResponseBody
-//    byte[] getPostImage(@RequestParam("id") Long id, HttpServletResponse response, Model model) throws IOException {
-//        model.addAttribute("id", id);
-//        return postService.getPost(id).getImg();
-//    }
 
 
     @RequestMapping(value = "/blog", method = RequestMethod.POST)
@@ -55,7 +48,7 @@ public class MainController {
         if (bindingResult.hasErrors()) {
             System.out.println("ERROR");
             bindingResult.getAllErrors().forEach(error -> System.out.println(error.getObjectName() + " " + error.getDefaultMessage()));
-            return "nowywpis";
+            return "post";
         } else {
             postService.addPost(post);
             return "redirect:/blog";

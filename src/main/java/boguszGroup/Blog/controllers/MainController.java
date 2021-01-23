@@ -59,7 +59,7 @@ public class MainController {
     public String savePost(@Valid Post post, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            System.out.println("ERROR");
+            System.out.println("ERROR");//todo throw exception
             bindingResult.getAllErrors().forEach(error -> System.out.println(error.getObjectName() + " " + error.getDefaultMessage()));
             return "newPostForm";
         } else {

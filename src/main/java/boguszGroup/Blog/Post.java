@@ -35,9 +35,6 @@ class Post {
     @Lob
     private byte[] img;
 
-    @Transient
-    private String pathPostImage;
-
     public Post() {
     }
 

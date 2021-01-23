@@ -2,39 +2,43 @@ package boguszGroup.Blog;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 public @Data
-@Table(name="post_table")
+@Table(name = "post_table")
 class Post {
 
-  @NotNull
-  private String title;
+    @NotNull
+    private String title;
 
-  @Lob
-  @NotNull
-  @Size(min = 1)
-  private String text;
+    @Lob
+    @NotNull
+    @Size(min = 1)
+    private String text;
 
-  @Column(name="date")
-  private String time;
+    @Column(name = "date")
+    private String time;
 
-  @Id
-  private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @Column(name = "id", updatable = false, nullable = false)
+    private long id;
 
-  @Transient
-  private MultipartFile imgFile;
+    @Transient
+    private MultipartFile imgFile;
 
-  @Lob
-  private byte[] img;
+    @Lob
+    private byte[] img;
 
-  @Transient
-  private String pathPostImage;
+    @Transient
+    private String pathPostImage;
 
-  public Post() {
-  }
+    public Post() {
+    }
 
 }

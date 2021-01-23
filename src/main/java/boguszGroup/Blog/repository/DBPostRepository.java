@@ -2,10 +2,10 @@ package boguszGroup.Blog.repository;
 
 import boguszGroup.Blog.Post;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,37 +27,33 @@ public class DBPostRepository implements PostRepository {
         return em.find(Post.class, id);
     }
 
+    public byte[] getPostImageById(long id) {
+        return (byte[])
+                em.createQuery("select img from Post where id=:query_id order by id asc")
+                        .setParameter("query_id", id)
+                        .getResultList()
+                        .get(0);
+    }
+
     @Override
     @Transactional
     public void addNewPost(Post post) {
-        long maxId = em.createQuery("select max(id) from Post", Long.class).getSingleResult();
-        post.setId(maxId + 1);
         post.setTime(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
-        try {
-            byte[] dataImg = post.getImgFile().getBytes();
-            post.setImg(dataImg);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        post.setImg(getImageBytes(post));
         em.persist(post);
     }
 
-    @Transactional
-    @Override
-    public void addPostsFromLocalDisc(String folderPath) throws IOException {
-        File folder = new File(folderPath);
-        File[] fileList = folder.listFiles(file -> {
-            return file.getName().contains(".html");
-        });
-        if (fileList != null) {
-            for (File src : fileList) {
-                em.persist(createPostFromLocalDir(src));
+    private byte[] getImageBytes(Post post) {
+        MultipartFile imgFile = post.getImgFile();
+        if (imgFile != null) {
+            try {
+                return imgFile.getBytes();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;//todo throw exception or warning about failure in adding image
             }
-            System.out.println("Dodałem posty z dysku do bazy danych");
         } else {
-            System.out.println("Nie ma postów na dysku");
+            return null;
         }
     }
-
 }

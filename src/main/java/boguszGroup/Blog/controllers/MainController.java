@@ -1,6 +1,6 @@
 package boguszGroup.Blog.controllers;
 
-import boguszGroup.Blog.Post;
+import boguszGroup.Blog.model.Post;
 import boguszGroup.Blog.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

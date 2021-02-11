@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service("userDetailsService")
+@Service
 @RequiredArgsConstructor
 public class BlogUserDetailsService implements UserDetailsService {
 

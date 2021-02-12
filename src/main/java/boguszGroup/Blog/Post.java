@@ -1,6 +1,7 @@
-package boguszGroup.Blog.model;
+package boguszGroup.Blog;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 @Table(name = "post_table")
+@NoArgsConstructor
 public class Post {
 
     @NotNull
@@ -35,7 +37,6 @@ public class Post {
     @Lob
     private byte[] img;
 
-    public Post() {
-    }
+
 
 }

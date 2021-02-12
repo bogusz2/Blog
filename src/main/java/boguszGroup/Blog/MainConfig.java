@@ -1,4 +1,4 @@
-package boguszGroup.Blog.config;
+package boguszGroup.Blog;
 
 import boguszGroup.Blog.repository.DBPostRepository;
 import org.springframework.context.annotation.Bean;

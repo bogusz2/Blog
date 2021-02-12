@@ -1,6 +1,6 @@
 package boguszGroup.Blog.repository;
 
-import boguszGroup.Blog.model.Post;
+import boguszGroup.Blog.Post;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;

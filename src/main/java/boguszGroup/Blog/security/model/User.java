@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,13 +32,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(unique = true)
+    @Column(unique = true)
     private String username;
 
     @Column(length = 60)
     private String password;
 
-//    @Column(unique = true)
+    @Column(unique = true)
     private String email;
 
     private boolean enabled;

@@ -48,9 +48,10 @@ public class SecurityController {
 
     @PostMapping("/register")
     public String registerUserAccount(@ModelAttribute("user") @Valid final UserDto accountDto, BindingResult bindingResult) {
-            final User registered = userService.registerNewUserAccount(accountDto);
+        if(userService.registerNewUserAccount(accountDto).isEmpty()){
+            return "redirect:/register";//todo return loginError page
+        }else{
             return "home";
-
-
+        }
     }
 }

@@ -6,6 +6,7 @@ import boguszGroup.Blog.security.model.User;
 import boguszGroup.Blog.security.repository.RoleRepository;
 import boguszGroup.Blog.security.repository.UserRepository;
 //import boguszGroup.Blog.security.errors.UserAlreadyExistException
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -29,23 +32,30 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public User registerNewUserAccount(final UserDto accountDto) {
-        if (emailExists(accountDto.getEmail())) {
-            LOGGER.info("There is an account with that email address: " + accountDto.getEmail());
-            //todo throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getEmail());
-        }
-
-        final User user = new User();
-
-        user.setUsername(accountDto.getUsername());
-        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        user.setEmail(accountDto.getEmail());
-//        user.setUsing2FA(accountDto.isUsing2FA());
-        user.setRoles(Arrays.asList(roleRepository.findByName("USER")));
-        return userRepository.save(user);
+    public Optional<User> registerNewUserAccount(final UserDto accountDto) {
+        return Optional.of(accountDto)
+                .filter(this::isUniqueAccount)//todo throw new UserAlreadyExistException
+                .map(this::userDtoMapToUser)
+                .map(userRepository::save);
     }
 
-    private boolean emailExists(final String email) {
-        return userRepository.findByEmail(email) != null;
+    private boolean isUniqueAccount(final UserDto user) {
+        return Boolean.logicalAnd(emailNotExists(user.getEmail()), usernameNotExists(user.getUsername()));
+    }
+
+    private boolean emailNotExists(final String email) {
+        return userRepository.findByEmail(email) == null;
+    }
+
+    private boolean usernameNotExists(final String username) {
+        return userRepository.findByUsername(username) == null;
+    }
+
+    private User userDtoMapToUser(UserDto userDto) {
+        User user =  new User();
+        user.setUsername(userDto.getUsername());
+        user.setPassword((passwordEncoder.encode(userDto.getPassword())));
+        user.setEmail(userDto.getEmail());
+        return user;
     }
 }

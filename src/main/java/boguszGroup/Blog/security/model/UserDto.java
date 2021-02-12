@@ -1,9 +1,7 @@
 package boguszGroup.Blog.security.model;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 

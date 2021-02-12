@@ -2,13 +2,8 @@ package boguszGroup.Blog.security.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Collection;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity
 @Data

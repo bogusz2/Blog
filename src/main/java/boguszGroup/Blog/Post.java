@@ -13,6 +13,11 @@ import javax.validation.constraints.Size;
 @Table(name = "post_table")
 @NoArgsConstructor
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @Column(name = "id", updatable = false, nullable = false)
+    private long id;
 
     @NotNull
     private String title;
@@ -22,21 +27,12 @@ public class Post {
     @Size(min = 1)
     private String text;
 
-    @Column(name = "date")
     private String date;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    @Column(name = "id", updatable = false, nullable = false)
-    private long id;
 
     @Transient
     private MultipartFile imgFile;
 
     @Lob
     private byte[] img;
-
-
 
 }

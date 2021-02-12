@@ -19,7 +19,7 @@
 <div th:each="post : ${posts}">
      <!--th:with="post = ${posts[i]}">-->
     <a th:href="${'/post?id='+post.id}"><h2 th:text="${post.title}"></h2></a>
-    <div th:text="${post.time}"></div>
+    <div th:text="${post.date}"></div>
 
 </div>
 

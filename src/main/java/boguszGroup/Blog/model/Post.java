@@ -8,9 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public @Data
+@Data
 @Table(name = "post_table")
-class Post {
+public class Post {
 
     @NotNull
     private String title;
@@ -21,7 +21,7 @@ class Post {
     private String text;
 
     @Column(name = "date")
-    private String time;
+    private String date;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

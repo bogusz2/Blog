@@ -38,7 +38,7 @@ public class DBPostRepository implements PostRepository {
     @Override
     @Transactional
     public void addNewPost(Post post) {
-        post.setTime(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
+        post.setDate(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
         post.setImg(getImageBytes(post));
         em.persist(post);
     }

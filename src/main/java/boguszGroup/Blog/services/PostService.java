@@ -15,8 +15,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     public List<Post> getAllPosts() {
-        List<Post> posts = new ArrayList<>(postRepository.getPosts());
-        return posts;
+        return new ArrayList<>(postRepository.getPosts());
     }
 
     public Post getPost(Long id) {

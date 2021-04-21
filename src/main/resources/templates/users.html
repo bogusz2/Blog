@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>-->
+    <!--<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>-->
+</head>
+<body>
+<h1>Użytkownicy:</h1>
+
+<!--<div th:each=" i : ${#numbers.sequence(users.size()-1,0,-1)}"-->
+<div th:each="user : ${users}">
+    <!--th:with="user = ${users[i]}">-->
+    <a th:href="${'/user?id='+user.id}"><h2 th:text="${user.username}"></h2></a>
+    <div th:text="${user.password}"></div>
+
+</div>
+
+<div class="row">
+    <a href="/logout">Wyloguj</a>
+</div>
+<br />
+</body>
+</html>

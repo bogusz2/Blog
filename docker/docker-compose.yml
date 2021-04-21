@@ -1,0 +1,22 @@
+version: '3.6'
+services:
+  db:
+    build:
+      context: ./db
+    container_name: BlogDatabase
+    expose:
+      - '1433'
+    ports:
+      - '1433:1433'
+    restart: always
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'iamSAUser123'
+      MSSQL_DB: blog
+      MSSQL_USER: blog_user
+      MSSQL_PASSWORD: iamAdminUser123
+  app:
+  
+  
+  
+  

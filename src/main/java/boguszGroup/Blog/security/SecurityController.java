@@ -34,10 +34,8 @@ public class SecurityController {
 
     @PostMapping("/register")
     public String registerUserAccount(@ModelAttribute("user") @Valid final UserDto accountDto) {
-        if (userService.registerNewUserAccount(accountDto).isEmpty()) {
-            return "redirect:/register";//todo return loginError page
-        } else {
-            return "home";
-        }
+        return userService
+                .registerNewUserAccount(accountDto)
+                .isEmpty() ? "redirect:/register" : "home"; //todo return loginError page
     }
 }

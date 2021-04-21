@@ -11,7 +11,6 @@ public class MainConfig {
     @Bean(name = "DBRepository")
     @Profile("prod")
     public DBPostRepository createPostRepoInDB() {
-        DBPostRepository postRepo = new DBPostRepository();
-        return postRepo;
+        return new DBPostRepository();
     }
 }

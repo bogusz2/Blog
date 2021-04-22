@@ -1,6 +1,6 @@
 package boguszGroup.Blog;
 
-import boguszGroup.Blog.Post;
+import boguszGroup.Blog.security.model.Post;
 import boguszGroup.Blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

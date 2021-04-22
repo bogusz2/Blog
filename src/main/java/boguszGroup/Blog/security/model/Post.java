@@ -1,4 +1,4 @@
-package boguszGroup.Blog;
+package boguszGroup.Blog.security.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
-@Table(name = "post_table")
+@Table(name = "post")
 @NoArgsConstructor
 public class Post {
     @Id
@@ -18,6 +18,10 @@ public class Post {
     @NotNull
     @Column(name = "id", updatable = false, nullable = false)
     private long id;
+
+    @ManyToOne
+    @JoinColumn(name="post_author_id", referencedColumnName = "id")
+    private User user;
 
     @NotNull
     private String title;

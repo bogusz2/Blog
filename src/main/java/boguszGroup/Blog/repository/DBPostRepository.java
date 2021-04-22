@@ -1,6 +1,6 @@
 package boguszGroup.Blog.repository;
 
-import boguszGroup.Blog.Post;
+import boguszGroup.Blog.security.model.Post;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 

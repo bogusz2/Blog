@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {//TODO przepisać hardcody do properties
 
-    boolean alreadySetup = true;
+    boolean alreadySetup = false;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;

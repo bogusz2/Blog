@@ -32,38 +32,8 @@ public class MainController {
         return "blog";
     }
 
-    @GetMapping("/addPost")
-    public String newPost(Model model) {
-        model.addAttribute("post", new Post());
-        return "newPostForm";
-    }
-
-    @GetMapping("/post")
-    public String getPost(@RequestParam("id") Long id, Model model, HttpServletResponse response) {
-        Post post = postService.getPost(id);
-        model.addAttribute("post", post);
-        model.addAttribute("id", post.getId());
-        return "post";
-    }
-
-    @GetMapping("/postImageJPG")
-    public @ResponseBody
-    byte[] getPostImage(@RequestParam("id") Long id, HttpServletResponse response, Model model) {
-        model.addAttribute("id", id);
-        return postService.getPostImageById(id);
-    }
 
 
-    @PostMapping("/blog")
-    public String savePost(@Valid Post post, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()) {
-            System.out.println("ERROR");//todo throw exception
-            bindingResult.getAllErrors().forEach(error -> System.out.println(error.getObjectName() + " " + error.getDefaultMessage()));
-            return "newPostForm";
-        } else {
-            postService.addPost(post);
-            return "redirect:/blog";
-        }
-    }
+
 }

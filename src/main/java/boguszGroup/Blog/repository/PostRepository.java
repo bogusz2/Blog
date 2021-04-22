@@ -15,4 +15,6 @@ public interface PostRepository{
     void addNewPost(Post post);
 
     byte[] getPostImageById(long id);
+
+    Collection<Post> getPostsByUserId(long userId);
 }

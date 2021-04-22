@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     private final DataSource dataSource;
 
@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .defaultSuccessUrl("/myPosts", true)
                 .and()
                 .logout()
                 .deleteCookies("JSESSIONID")

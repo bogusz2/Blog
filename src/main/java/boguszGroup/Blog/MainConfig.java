@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 public class MainConfig {
 
     @Bean(name = "DBRepository")
-    @Profile("prod")
+    @Profile("dev")
     public DBPostRepository createPostRepoInDB() {
         return new DBPostRepository();
     }

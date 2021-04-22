@@ -15,7 +15,6 @@ services:
       MSSQL_DB: blog
       MSSQL_USER: blog_user
       MSSQL_PASSWORD: iamAdminUser123
-  app:
   
   
   

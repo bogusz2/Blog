@@ -1,9 +1,9 @@
-package boguszGroup.Blog.security.service;
+package boguszGroup.Blog.service;
 
-import boguszGroup.Blog.security.model.User;
-import boguszGroup.Blog.security.model.UserDto;
-import boguszGroup.Blog.security.repository.RoleRepository;
-import boguszGroup.Blog.security.repository.UserRepository;
+import boguszGroup.Blog.model.User;
+import boguszGroup.Blog.model.UserDto;
+import boguszGroup.Blog.repository.RoleRepository;
+import boguszGroup.Blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

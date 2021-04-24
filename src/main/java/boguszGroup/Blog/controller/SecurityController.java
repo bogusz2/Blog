@@ -1,7 +1,7 @@
-package boguszGroup.Blog.security;
+package boguszGroup.Blog.controller;
 
-import boguszGroup.Blog.security.model.UserDto;
-import boguszGroup.Blog.security.service.UserService;
+import boguszGroup.Blog.model.UserDto;
+import boguszGroup.Blog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

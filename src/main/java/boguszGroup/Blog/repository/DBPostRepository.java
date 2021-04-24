@@ -1,6 +1,6 @@
 package boguszGroup.Blog.repository;
 
-import boguszGroup.Blog.security.model.Post;
+import boguszGroup.Blog.model.Post;
 import org.hibernate.query.NativeQuery;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;

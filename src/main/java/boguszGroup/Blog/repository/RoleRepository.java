@@ -1,7 +1,7 @@
-package boguszGroup.Blog.security.repository;
+package boguszGroup.Blog.repository;
 
 
-import boguszGroup.Blog.security.model.Role;
+import boguszGroup.Blog.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {

@@ -1,7 +1,7 @@
-package boguszGroup.Blog.security;
+package boguszGroup.Blog.service;
 
 
-import boguszGroup.Blog.security.repository.UserRepository;
+import boguszGroup.Blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

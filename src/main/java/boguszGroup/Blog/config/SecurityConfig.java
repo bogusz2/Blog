@@ -1,5 +1,6 @@
-package boguszGroup.Blog.security;
+package boguszGroup.Blog.config;
 
+import boguszGroup.Blog.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

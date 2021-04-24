@@ -1,8 +1,8 @@
-package boguszGroup.Blog.Post;
+package boguszGroup.Blog.controller;
 
-import boguszGroup.Blog.PostService;
-import boguszGroup.Blog.security.model.Post;
-import boguszGroup.Blog.security.service.UserService;
+import boguszGroup.Blog.service.PostService;
+import boguszGroup.Blog.model.Post;
+import boguszGroup.Blog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

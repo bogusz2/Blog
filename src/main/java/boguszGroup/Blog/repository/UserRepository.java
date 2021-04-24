@@ -1,6 +1,6 @@
-package boguszGroup.Blog.security.repository;
+package boguszGroup.Blog.repository;
 
-import boguszGroup.Blog.security.model.User;
+import boguszGroup.Blog.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

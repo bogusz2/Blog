@@ -1,7 +1,7 @@
-package boguszGroup.Blog.security;
+package boguszGroup.Blog.controller;
 
-import boguszGroup.Blog.security.model.User;
-import boguszGroup.Blog.security.service.UserService;
+import boguszGroup.Blog.model.User;
+import boguszGroup.Blog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package boguszGroup.Blog.security.model;
+package boguszGroup.Blog.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

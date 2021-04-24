@@ -1,4 +1,4 @@
-package boguszGroup.Blog.security.service;
+package boguszGroup.Blog.service;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

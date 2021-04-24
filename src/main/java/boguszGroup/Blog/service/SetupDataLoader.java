@@ -1,11 +1,11 @@
-package boguszGroup.Blog.security.service;
+package boguszGroup.Blog.service;
 
-import boguszGroup.Blog.security.model.Privilege;
-import boguszGroup.Blog.security.model.Role;
-import boguszGroup.Blog.security.model.User;
-import boguszGroup.Blog.security.repository.PrivilegeRepository;
-import boguszGroup.Blog.security.repository.RoleRepository;
-import boguszGroup.Blog.security.repository.UserRepository;
+import boguszGroup.Blog.model.Privilege;
+import boguszGroup.Blog.model.Role;
+import boguszGroup.Blog.model.User;
+import boguszGroup.Blog.repository.PrivilegeRepository;
+import boguszGroup.Blog.repository.RoleRepository;
+import boguszGroup.Blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

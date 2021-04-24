@@ -1,9 +1,9 @@
-package boguszGroup.Blog;
+package boguszGroup.Blog.service;
 
-import boguszGroup.Blog.security.model.Post;
+import boguszGroup.Blog.model.Post;
 import boguszGroup.Blog.repository.PostRepository;
-import boguszGroup.Blog.security.model.User;
-import boguszGroup.Blog.security.repository.UserRepository;
+import boguszGroup.Blog.model.User;
+import boguszGroup.Blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

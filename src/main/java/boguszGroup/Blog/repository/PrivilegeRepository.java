@@ -1,8 +1,7 @@
-package boguszGroup.Blog.security.repository;
+package boguszGroup.Blog.repository;
 
 
-import boguszGroup.Blog.security.model.Privilege;
-import boguszGroup.Blog.security.model.Role;
+import boguszGroup.Blog.model.Privilege;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PrivilegeRepository extends JpaRepository<Privilege, Long> {

@@ -1,8 +1,6 @@
-package boguszGroup.Blog.security.model;
+package boguszGroup.Blog.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;

@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Start</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -11,6 +13,11 @@
 </head>
 <body>
 <h1>Jesteś na stronie bloga</h1>
+
+<div sec:authorize="isAuthenticated()">
+    <span th:text ="${#authentication.getPrincipal().getUsername()}"></span>
+</div>
+
 <div class="row">
     <a href="/myPosts">Moje wpisy</a>
 </div>

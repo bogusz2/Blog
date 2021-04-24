@@ -26,6 +26,9 @@ public class Post {
     @NotNull
     private String title;
 
+    @NotNull
+    private PostAccessibility postAccessibility;
+
     @Lob
     @NotNull
     @Size(min = 1)

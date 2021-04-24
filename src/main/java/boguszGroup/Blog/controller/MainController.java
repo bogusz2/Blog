@@ -20,15 +20,4 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/blog")
-    public String blog(Model model) {
-        List<Post> allPosts = postService.getAllPosts();
-        model.addAttribute("posts", allPosts);
-        return "blog";
-    }
-
-
-
-
-
 }

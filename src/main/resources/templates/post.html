@@ -16,10 +16,12 @@
     <p th:utext="${post.text}"/>
     <!--<p th:="${post.text}"/>-->
     <img th:src="@{'/postImageJPG?id='+${id}}"/>
+    <p th:utext="${post.postAccessibility}"/>
+
 </div>
 
 
-    <a href="/blog">Powrót</a>
+    <a href="/myPosts">Powrót</a>
 </div>
 </body>
 </html>

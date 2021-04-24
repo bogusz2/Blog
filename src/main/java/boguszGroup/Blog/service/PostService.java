@@ -24,6 +24,10 @@ public class PostService {
         return new ArrayList<>(postRepository.getPosts());
     }
 
+    public List<Post> getPublicPosts() {
+        return new ArrayList<>(postRepository.getPublicPosts());
+    }
+
     public List<Post> getPostsByAuthor(String username) {
         long userId = userRepository.findByUsername(username).getId();
         return new ArrayList<>(postRepository.getPostsByUserId(userId));

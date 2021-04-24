@@ -1,6 +1,7 @@
 package boguszGroup.Blog.repository;
 
 import boguszGroup.Blog.model.Post;
+import boguszGroup.Blog.model.PostAccessibility;
 import org.hibernate.query.NativeQuery;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class DBPostRepository implements PostRepository {
+
 
     @PersistenceContext
     private EntityManager em;
@@ -35,6 +37,15 @@ public class DBPostRepository implements PostRepository {
         NativeQuery query = (NativeQuery) em.createNativeQuery(sql);
         query.addEntity(Post.class);
         query.setParameter("userId", userId);
+        return query.list();
+    }
+
+    @Override
+    public Collection<Post> getPublicPosts() {
+        String sql = "select * from post where post_accessibility= :access";
+        NativeQuery query = (NativeQuery) em.createNativeQuery(sql);
+        query.addEntity(Post.class);
+        query.setParameter("access", PostAccessibility.PUBLIC.ordinal());
         return query.list();
     }
 

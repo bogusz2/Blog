@@ -1,45 +1,64 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Start</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
 
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
-	<script type="text/javascript">
-        function timer(){
-	    var date = new Date();
-		var day = date.getDate();
-		if(day<10) day = "0"+day;
-		var month = date.getMonth()+1;
-		if(month<10) month = "0"+month;
-		var year = date.getFullYear();
-		var hour = date.getHours();
-		if(hour<10)hour = "0"+hour;
-		var minute = date.getMinutes();
-		if(minute<10) minute = "0"+minute;
-		var second = date.getSeconds();
-		if(second<10) second = "0"+second;
-		document.getElementById("zegar").innerHTML = day+"/"+month+"/"+year+" | "+hour+":"+minute+":"+second;
-		setTimeout("timer()", 1000);
-	}
+    <script type="text/javascript">
+        function timer() {
+            var date = new Date();
+            var day = date.getDate();
+            if (day < 10) day = "0" + day;
+            var month = date.getMonth() + 1;
+            if (month < 10) month = "0" + month;
+            var year = date.getFullYear();
+            var hour = date.getHours();
+            if (hour < 10) hour = "0" + hour;
+            var minute = date.getMinutes();
+            if (minute < 10) minute = "0" + minute;
+            var second = date.getSeconds();
+            if (second < 10) second = "0" + second;
+            document.getElementById("zegar").innerHTML = day + "/" + month + "/" + year + " | " + hour + ":" + minute + ":" + second;
+            setTimeout("timer()", 1000);
+        }
     </script>
 
 
 </head>
 <body onload="timer();">
-	<div id="zegar"></div>
+<div id="zegar"></div>
+
+
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/logout}">Log out</a>
+</div>
+<div sec:authorize="isAnonymous()">
+    <a th:href="@{/login}">Log in</a>
+</div>
 
 
 <h1>Jesteś na stronie startowej</h1>
-<a href="/blog">Blog</a>
-<br />
-<a href="/login">Zaloguj</a>
-<br />
+<a href="/blog">Wpisy publiczne</a>
+<br/>
+<a href="/myPosts">Moje wpisy</a>
+<br/>
+
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/logout}">Log out</a>
+</div>
+<div sec:authorize="isAnonymous()">
+    <a th:href="@{/login}">Log in</a>
+</div>
+<!--<a href="/login">Zaloguj</a>-->
+<!--<br />-->
 <!--<a href="/logout">Wyloguj</a>-->
-<br />
+<br/>
 </body>
 </html>

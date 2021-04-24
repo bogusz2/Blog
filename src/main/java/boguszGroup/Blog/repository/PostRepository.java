@@ -17,4 +17,7 @@ public interface PostRepository{
     byte[] getPostImageById(long id);
 
     Collection<Post> getPostsByUserId(long userId);
+
+    Collection<Post> getPublicPosts();
+
 }

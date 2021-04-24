@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Start</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />-->
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -12,12 +12,20 @@
 <body>
 <h1>Jesteś na stronie bloga</h1>
 <div class="row">
+    <a href="/myPosts">Moje wpisy</a>
+</div>
+
+<div class="row">
+    <a href="/blog">Publiczne wpisy</a>
+</div>
+
+<div class="row">
     <a href="/addPost">Dodaj nowy wpis</a>
 </div>
 
 <!--<div th:each=" i : ${#numbers.sequence(posts.size()-1,0,-1)}"-->
 <div th:each="post : ${posts}">
-     <!--th:with="post = ${posts[i]}">-->
+    <!--th:with="post = ${posts[i]}">-->
     <a th:href="${'/post?id='+post.id}"><h2 th:text="${post.title}"></h2></a>
     <div th:text="${post.date}"></div>
 
@@ -30,6 +38,6 @@
 <div class="row">
     <a href="/logout">Wyloguj</a>
 </div>
-<br />
+<br/>
 </body>
 </html>

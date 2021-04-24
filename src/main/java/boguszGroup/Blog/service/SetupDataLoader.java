@@ -34,25 +34,26 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
         if (alreadySetup)
             return;
+        //todo przepisać do enuma
         Privilege readPublicPostsPrivilege
                 = createPrivilegeIfNotFound("READ_PUBLIC_POSTS_PRIVILEGE");
-        Privilege readPrivatePostsPrivilege
-                = createPrivilegeIfNotFound("READ_PRIVATE_POSTS_PRIVILEGE");
+        Privilege readAllPostsPrivilege
+                = createPrivilegeIfNotFound("READ_ALL_POSTS_PRIVILEGE");
         Privilege createPublicPostsPrivilege
                 = createPrivilegeIfNotFound("CREATE_PUBLIC_POSTS_PRIVILEGE");
         Privilege createPrivatePostsPrivilege
                 = createPrivilegeIfNotFound("CREATE_PRIVATE_POSTS_PRIVILEGE");
-        Privilege readUsersInfoPrivilege
-                = createPrivilegeIfNotFound("READ_USERS_INFO");
+        Privilege readUsernamesPrivilege
+                = createPrivilegeIfNotFound("READ_USERNAMES_PRIVILEGE");
         Privilege enableUsersPrivilege
-                = createPrivilegeIfNotFound("ENABLE_USERS");
+                = createPrivilegeIfNotFound("ENABLE_USERS_PRIVILEGE");
 
         List<Privilege> adminPrivileges = Arrays.asList(
                 readPublicPostsPrivilege,
-                readPrivatePostsPrivilege,
+                readAllPostsPrivilege,
                 createPublicPostsPrivilege,
                 createPrivatePostsPrivilege,
-                readUsersInfoPrivilege,
+                readUsernamesPrivilege,
                 enableUsersPrivilege
                 );
 

@@ -4,6 +4,7 @@ import boguszGroup.Blog.service.PostService;
 import boguszGroup.Blog.model.Post;
 import boguszGroup.Blog.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +24,6 @@ public class PostController {
 
     private final PostService postService;
 
-    private final UserService userService;
-
     @GetMapping("/myPosts")
     public String getMyPosts(Model model, Authentication authentication) {
         List<Post> myPosts = postService.getPostsByAuthor(authentication.getName());
@@ -32,8 +31,23 @@ public class PostController {
         return "blog";
     }
 
+    @PreAuthorize("hasAuthority('READ_ALL_POSTS_PRIVILEGE')")
+    @GetMapping("/admin/allPosts")
+    public String blog(Model model) {
+        List<Post> allPosts = postService.getAllPosts();
+        model.addAttribute("posts", allPosts);
+        return "blog";
+    }
+
+    @GetMapping("/blog")
+    public String getPublicPosts(Model model) {
+        List<Post> myPosts = postService.getPublicPosts();
+        model.addAttribute("posts", myPosts);
+        return "blog";
+    }
+
     @PostMapping("/blog")
-    public String savePost(@Valid Post post, BindingResult bindingResult, Authentication authentication) {
+    public String saveNewPost(@Valid Post post, BindingResult bindingResult, Authentication authentication) {
 
         if (bindingResult.hasErrors()) {
             System.out.println("ERROR");//todo throw exception
@@ -41,7 +55,7 @@ public class PostController {
             return "newPostForm";
         } else {
             postService.addPost(post, authentication.getName());
-            return "redirect:/blog";
+            return "redirect:/myPosts";
         }
     }
 

@@ -1,10 +1,8 @@
 package boguszGroup.Blog.controller;
 
-import boguszGroup.Blog.service.PostService;
 import boguszGroup.Blog.model.Post;
-import boguszGroup.Blog.service.UserService;
+import boguszGroup.Blog.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,14 +26,6 @@ public class PostController {
     public String getMyPosts(Model model, Authentication authentication) {
         List<Post> myPosts = postService.getPostsByAuthor(authentication.getName());
         model.addAttribute("posts", myPosts);
-        return "blog";
-    }
-
-    @PreAuthorize("hasAuthority('READ_ALL_POSTS_PRIVILEGE')")
-    @GetMapping("/admin/allPosts")
-    public String blog(Model model) {
-        List<Post> allPosts = postService.getAllPosts();
-        model.addAttribute("posts", allPosts);
         return "blog";
     }
 

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Users</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />-->
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -13,16 +13,41 @@
 <h1>Użytkownicy:</h1>
 
 <!--<div th:each=" i : ${#numbers.sequence(users.size()-1,0,-1)}"-->
-<div th:each="user : ${users}">
-    <!--th:with="user = ${users[i]}">-->
-    <a th:href="${'/user?id='+user.id}"><h2 th:text="${user.username}"></h2></a>
-    <div th:text="${user.password}"></div>
+<!--<div th:each="user : ${users}">-->
+<h2 class="my-5">Users</h2>
+<table class="table table-striped table-responsive-md">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Enabled</th>
+        <th></th>
 
-</div>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.enabled}"></td>
+
+        <td>
+            <form  th:action="@{/admin/users/{id}(id=${user.id})}" th:method="post">
+                <button type="submit" name="submit" value="value" class="link-button">Enable</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!--th:with="user = ${users[i]}">-->
+<!--<form>-->
+<!--    <div th:text="${user.username}"></div>-->
+<!--    <div th:text="${user.enabled}"></div>-->
+<!--</form>-->
+<!--</div>-->
 
 <div class="row">
     <a href="/logout">Wyloguj</a>
 </div>
-<br />
+<br/>
 </body>
 </html>

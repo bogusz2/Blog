@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +53,16 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword((passwordEncoder.encode(userDto.getPassword())));
         user.setEmail(userDto.getEmail());
+        user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
         return user;
     }
 
     public List<User> getUsers(){
         return userRepository.findAll();
+    }
+
+    public boolean enableUser(Long id){
+        userRepository.updateUser(id);
+        return true;
     }
 }

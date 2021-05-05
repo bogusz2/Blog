@@ -29,7 +29,7 @@ public class PostService {
     }
 
     public List<Post> getPostsByAuthor(String username) {
-        long userId = userRepository.findByUsername(username).getId();
+        long userId = userRepository.findByUsername(username).getId();//todo when posts is null
         return new ArrayList<>(postRepository.getPostsByUserId(userId));
     }
 
